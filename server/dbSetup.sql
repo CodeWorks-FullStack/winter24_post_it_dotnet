@@ -22,3 +22,10 @@ CREATE TABLE albums(
 );
 
 DROP TABLE albums;
+
+SELECT
+    albums.*,
+    accounts.*
+    FROM albums
+    JOIN accounts ON albums.creator_id = accounts.id
+    WHERE albums.id = 2;

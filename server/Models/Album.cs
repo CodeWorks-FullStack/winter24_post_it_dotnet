@@ -13,4 +13,5 @@ public class Album
   [Url, MaxLength(3000)] public string CoverImg { get; set; }
   public bool Archived { get; set; }
   public string Category { get; set; }
+  public Account Creator { get; set; }
 }
