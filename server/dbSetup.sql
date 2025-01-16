@@ -16,7 +16,9 @@ CREATE TABLE albums(
   title TINYTEXT NOT NULL,
   description TINYTEXT,
   cover_img TEXT NOT NULL,
-  archived BOOLEAN NOT NULL,
+  archived BOOLEAN NOT NULL DEFAULT false,
   category ENUM('aesthetics', 'food', 'games', 'animals', 'vibes', 'misc') NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 );
+
+DROP TABLE albums;
