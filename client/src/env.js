@@ -1,4 +1,5 @@
 export const dev = window.location.origin.includes('localhost')
+// REVIEW change this!
 export const baseURL = dev ? 'https://localhost:7045' : ''
 export const useSockets = false
 export const domain = 'dev-h63x8ohlbl1q2qkp.us.auth0.com'
