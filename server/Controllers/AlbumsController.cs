@@ -28,4 +28,18 @@ public class AlbumsController : ControllerBase
       return BadRequest(exception.Message);
     }
   }
+
+  [HttpGet]
+  public ActionResult<List<Album>> GetAllAlbums()
+  {
+    try
+    {
+      List<Album> albums = _albumsService.GetAllAlbums();
+      return Ok(albums);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }
