@@ -46,6 +46,10 @@ public class PicturesService
 
     if (picture.CreatorId != userId) throw new Exception("YOU CAN NOT DELETE ANOTHER USER'S PICTURE, BUD");
 
+    Album album = _albumsService.GetAlbumById(picture.AlbumId);
+
+    if (album.Archived) throw new Exception($"{album.Title} is archived and cannot have pictures removed from it!");
+
     _repository.DeletePicture(pictureId);
 
     return "Picture was deleted!";
