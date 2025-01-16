@@ -1,5 +1,6 @@
 
 
+
 namespace post_it_dotnet.Services;
 
 public class AlbumsService
@@ -20,5 +21,11 @@ public class AlbumsService
   {
     List<Album> albums = _repository.GetAllAlbums();
     return albums;
+  }
+
+  internal Album GetAlbumById(int albumId)
+  {
+    Album album = _repository.GetAlbumById(albumId);
+    return album;
   }
 }
