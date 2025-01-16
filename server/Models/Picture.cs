@@ -10,4 +10,5 @@ public class Picture
   public string CreatorId { get; set; }
   public int AlbumId { get; set; }
   [Url, MaxLength(3000)] public string ImgUrl { get; set; }
+  public Profile Creator { get; set; }
 }

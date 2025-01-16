@@ -1,3 +1,5 @@
+
+
 namespace post_it_dotnet.Services;
 
 
@@ -9,4 +11,15 @@ public class PicturesService
   }
   private readonly PicturesRepository _repository;
 
+  internal Picture CreatePicture(Picture pictureData)
+  {
+    Picture picture = _repository.CreatePicture(pictureData);
+    return picture;
+  }
+
+  internal List<Picture> GetPicturesByAlbumId(int albumId)
+  {
+    List<Picture> pictures = _repository.GetPicturesByAlbumId(albumId);
+    return pictures;
+  }
 }
