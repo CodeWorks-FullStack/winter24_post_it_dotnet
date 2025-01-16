@@ -1,6 +1,7 @@
 
 
 
+
 namespace post_it_dotnet.Repositories;
 
 public class AlbumsRepository
@@ -70,5 +71,21 @@ public class AlbumsRepository
     }, new { albumId }).SingleOrDefault();
 
     return album;
+  }
+
+  internal void ArchiveAlbum(int albumId)
+  {
+    string sql = "UPDATE albums SET archived = true WHERE id = @albumId;";
+
+    int rowsAffected = _db.Execute(sql, new { albumId });
+
+    switch (rowsAffected)
+    {
+      case 1: return;
+
+      case 0: throw new Exception("NO ROWS UPDATED");
+
+      default: throw new Exception($"{rowsAffected} ROWS WERE UPDATED AND THAT IS BAD");
+    }
   }
 }

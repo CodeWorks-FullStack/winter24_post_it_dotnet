@@ -1,6 +1,7 @@
 
 
 
+
 namespace post_it_dotnet.Services;
 
 public class AlbumsService
@@ -26,6 +27,22 @@ public class AlbumsService
   internal Album GetAlbumById(int albumId)
   {
     Album album = _repository.GetAlbumById(albumId);
+
+    if (album == null) throw new Exception($"Invalid album id: {albumId}");
+
+    return album;
+  }
+
+  internal Album ArchiveAlbum(int albumId, string userId)
+  {
+    Album album = GetAlbumById(albumId);
+
+    if (album.CreatorId != userId) throw new Exception("YOU CANNOT ARCHIVE ANOTHER USER'S ALBUM, FRIEND-O");
+
+    _repository.ArchiveAlbum(albumId);
+
+    album.Archived = true;
+
     return album;
   }
 }
