@@ -15,3 +15,9 @@ public class WatcherProfile : Profile
   public int WatcherId { get; set; } // id of the many-to-many
   public int AlbumId { get; set; } // id of the album from the many-to-many
 }
+
+public class WatcherAlbum : Album
+{
+  public string AccountId { get; set; }
+  public int WatcherId { get; set; } // id of the many-to-many
+}

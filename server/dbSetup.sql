@@ -60,3 +60,18 @@ accounts.*
 FROM watchers
 JOIN accounts ON watchers.account_id = accounts.id
 WHERE album_id = 19;
+
+
+SELECT
+watchers.*,
+albums.*,
+accounts.*
+FROM watchers
+JOIN albums ON watchers.album_id = albums.id
+JOIN accounts ON accounts.id = albums.creator_id
+WHERE  watchers.account_id = '670ff93326693293c631476f';
+
+INSERT INTO watchers(album_id,account_id )
+VALUES(1,'670ff93326693293c631476f' );
+
+SELECT * FROM albums;
