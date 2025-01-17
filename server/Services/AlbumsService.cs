@@ -10,6 +10,8 @@ public class AlbumsService
   {
     _repository = repository;
   }
+
+  // NOTE each service should only have access to one repository
   private readonly AlbumsRepository _repository;
 
   internal Album CreateAlbum(Album albumData)
@@ -33,6 +35,7 @@ public class AlbumsService
     return album;
   }
 
+  // NOTE soft delete
   internal Album ArchiveAlbum(int albumId, string userId)
   {
     Album album = GetAlbumById(albumId);

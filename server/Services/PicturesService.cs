@@ -11,7 +11,9 @@ public class PicturesService
     _repository = repository;
     _albumsService = albumsService;
   }
+  // NOTE each service should only have access to one repository
   private readonly PicturesRepository _repository;
+  // NOTE services can call to other services, but should never directly call to a different repository
   private readonly AlbumsService _albumsService;
 
   internal Picture CreatePicture(Picture pictureData)
@@ -20,6 +22,7 @@ public class PicturesService
 
     if (album.Archived) throw new Exception($"{album.Title} is archived and no longer accepting pictures");
 
+    // NOTE make sure all relevant checks are done BEFORE changing the data in the database
     Picture picture = _repository.CreatePicture(pictureData);
 
     return picture;
@@ -31,6 +34,7 @@ public class PicturesService
     return pictures;
   }
 
+  // NOTE if your controller doesn't need access to the method, don't expose it
   private Picture GetPictureById(int pictureId)
   {
     Picture picture = _repository.GetPictureById(pictureId);
@@ -50,6 +54,7 @@ public class PicturesService
 
     if (album.Archived) throw new Exception($"{album.Title} is archived and cannot have pictures removed from it!");
 
+    // NOTE make sure all relevant checks are done BEFORE changing the data in the database
     _repository.DeletePicture(pictureId);
 
     return "Picture was deleted!";
