@@ -2,6 +2,7 @@
 
 
 
+
 namespace post_it_dotnet.Services;
 
 public class WatchersService
@@ -12,5 +13,11 @@ public class WatchersService
   public WatchersService(WatchersRepository repository)
   {
     _repository = repository;
+  }
+
+  internal Watcher CreateWatcher(Watcher watcherData)
+  {
+    Watcher watcher = _repository.CreateWatcher(watcherData);
+    return watcher;
   }
 }
