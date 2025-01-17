@@ -1,5 +1,6 @@
 namespace post_it_dotnet.Controllers;
 
+
 [ApiController]
 [Route("api/{controller}")] // api/albums
 public class AlbumsController : ControllerBase
