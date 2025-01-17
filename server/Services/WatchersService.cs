@@ -31,7 +31,7 @@ public class WatchersService
 
   internal List<WatcherProfile> GetWatcherProfilesByAlbumId(int albumId)
   {
-    List<WatcherProfile> watchers = _repository.GetWatcherProfilesByAlbumId(albumId);
-    return watchers;
+    List<WatcherProfile> watcherProfiles = _repository.GetWatcherProfilesByAlbumId(albumId);
+    return watcherProfiles;
   }
 }

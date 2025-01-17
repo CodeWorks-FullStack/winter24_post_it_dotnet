@@ -40,7 +40,7 @@ public class WatchersRepository
     FROM watchers
     JOIN albums ON watchers.album_id = albums.id
     JOIN accounts ON accounts.id = albums.creator_id
-    WHERE  watchers.account_id = @userId";
+    WHERE watchers.account_id = @userId";
 
     List<WatcherAlbum> watcherAlbums = _db.Query(sql, (Watcher watcher, WatcherAlbum album, Profile account) =>
     {
@@ -63,14 +63,14 @@ public class WatchersRepository
     JOIN accounts ON watchers.account_id = accounts.id
     WHERE album_id = @albumId;";
 
-    List<WatcherProfile> watchers = _db.Query(sql, (Watcher watcher, WatcherProfile account) =>
+    List<WatcherProfile> watcherProfiles = _db.Query(sql, (Watcher watcher, WatcherProfile account) =>
     {
       account.AlbumId = watcher.AlbumId;
       account.WatcherId = watcher.Id; // id of the many-to-many
       return account;
     }, new { albumId }).ToList();
 
-    return watchers;
+    return watcherProfiles;
   }
 
 }
