@@ -42,9 +42,10 @@ public class WatchersRepository
     List<WatcherProfile> watchers = _db.Query(sql, (Watcher watcher, WatcherProfile account) =>
     {
       account.AlbumId = watcher.AlbumId;
-      account.WatcherId = watcher.Id;
+      account.WatcherId = watcher.Id; // id of the many-to-many
       return account;
     }, new { albumId }).ToList();
+
     return watchers;
   }
 

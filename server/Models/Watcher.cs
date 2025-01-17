@@ -10,13 +10,8 @@ public class Watcher
   public DateTime UpdatedAt { get; set; }
 }
 
-public class WatcherProfile
+public class WatcherProfile : Profile
 {
-  public string Id { get; set; } // id of the account from the many-to-many
-  public DateTime CreatedAt { get; set; }
-  public DateTime UpdatedAt { get; set; }
-  public string Name { get; set; }
-  public string Picture { get; set; }
   public int WatcherId { get; set; } // id of the many-to-many
   public int AlbumId { get; set; } // id of the album from the many-to-many
 }
