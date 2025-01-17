@@ -26,18 +26,14 @@ public class WatchersRepository
     VALUES(@AlbumId, @AccountId);
 
     SELECT
-    watchers.*,
-    accounts.*
-    FROM watchers 
-    JOIN accounts ON accounts.id = watchers.account_id
+    accounts.*,
+    watchers.album_id AS album_id,
+    watchers.id AS watcher_id
+    FROM watchers
+    JOIN accounts ON watchers.account_id = accounts.id
     WHERE watchers.id = LAST_INSERT_ID();";
 
-    WatcherProfile watcherProfile = _db.Query(sql, (Watcher watcher, WatcherProfile account) =>
-    {
-      account.AlbumId = watcher.AlbumId;
-      account.WatcherId = watcher.Id;
-      return account;
-    }, watcherData).SingleOrDefault();
+    WatcherProfile watcherProfile = _db.Query<WatcherProfile>(sql, watcherData).SingleOrDefault();
 
     return watcherProfile;
   }

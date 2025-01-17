@@ -55,8 +55,9 @@ CREATE TABLE watchers(
 
 
 SELECT
-watchers.*,
-accounts.*
+accounts.*,
+watchers.album_id AS album_id,
+watchers.id AS watcher_id
 FROM watchers
 JOIN accounts ON watchers.account_id = accounts.id
 WHERE album_id = 19;
