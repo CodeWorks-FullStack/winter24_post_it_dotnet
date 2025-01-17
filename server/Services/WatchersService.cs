@@ -18,10 +18,10 @@ public class WatchersService
     _repository = repository;
   }
 
-  internal Watcher CreateWatcher(Watcher watcherData)
+  internal WatcherProfile CreateWatcher(Watcher watcherData)
   {
-    Watcher watcher = _repository.CreateWatcher(watcherData);
-    return watcher;
+    WatcherProfile watcherProfile = _repository.CreateWatcher(watcherData);
+    return watcherProfile;
   }
 
   internal string DeleteWatcher(int watcherId, string userId)

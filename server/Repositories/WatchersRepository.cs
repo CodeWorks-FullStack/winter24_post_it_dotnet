@@ -18,18 +18,28 @@ public class WatchersRepository
     _db = db;
   }
 
-  internal Watcher CreateWatcher(Watcher watcherData)
+  internal WatcherProfile CreateWatcher(Watcher watcherData)
   {
     string sql = @"
     INSERT INTO 
     watchers(album_id, account_id)
     VALUES(@AlbumId, @AccountId);
 
-    SELECT * FROM watchers WHERE id = LAST_INSERT_ID();";
+    SELECT
+    watchers.*,
+    accounts.*
+    FROM watchers 
+    JOIN accounts ON accounts.id = watchers.account_id
+    WHERE watchers.id = LAST_INSERT_ID();";
 
-    Watcher watcher = _db.Query<Watcher>(sql, watcherData).SingleOrDefault();
+    WatcherProfile watcherProfile = _db.Query(sql, (Watcher watcher, WatcherProfile account) =>
+    {
+      account.AlbumId = watcher.AlbumId;
+      account.WatcherId = watcher.Id;
+      return account;
+    }, watcherData).SingleOrDefault();
 
-    return watcher;
+    return watcherProfile;
   }
 
   internal void DeleteWatcher(int watcherId)
