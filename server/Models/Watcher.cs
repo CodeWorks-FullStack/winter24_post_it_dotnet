@@ -10,14 +10,14 @@ public class Watcher
   public DateTime UpdatedAt { get; set; }
 }
 
-public class WatcherProfile : Profile
+public class WatcherProfile : Profile // all members from profile are inherited
 {
   public int WatcherId { get; set; } // id of the many-to-many
   public int AlbumId { get; set; } // id of the album from the many-to-many
 }
 
-public class WatcherAlbum : Album
+public class WatcherAlbum : Album // all members from album are inherited
 {
-  public string AccountId { get; set; }
   public int WatcherId { get; set; } // id of the many-to-many
+  public string AccountId { get; set; } // if og the account from the many-to-many
 }
