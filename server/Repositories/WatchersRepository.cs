@@ -5,6 +5,8 @@
 
 
 
+
+
 namespace post_it_dotnet.Repositories;
 
 public class WatchersRepository
@@ -30,6 +32,22 @@ public class WatchersRepository
     return watcher;
   }
 
+  internal void DeleteWatcher(int watcherId)
+  {
+    string sql = "DELETE FROM watchers WHERE id = @watcherId;";
+
+    int rowsAffected = _db.Execute(sql, new { watcherId });
+
+    switch (rowsAffected)
+    {
+      case 1: return;
+
+      case 0: throw new Exception("NO ROWS UPDATED");
+
+      default: throw new Exception($"{rowsAffected} ROWS WERE UPDATED AND THAT IS BAD");
+    }
+  }
+
   internal List<WatcherAlbum> GetWatcherAlbumsByAccountId(string userId)
   {
     string sql = @"
@@ -51,6 +69,15 @@ public class WatchersRepository
     }, new { userId }).ToList();
 
     return watcherAlbums;
+  }
+
+  internal Watcher GetWatcherById(int watcherId)
+  {
+    string sql = "SELECT * FROM watchers WHERE id = @watcherId;";
+
+    Watcher watcher = _db.Query<Watcher>(sql, new { watcherId }).SingleOrDefault();
+
+    return watcher;
   }
 
   internal List<WatcherProfile> GetWatcherProfilesByAlbumId(int albumId)

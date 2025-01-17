@@ -5,6 +5,7 @@
 
 
 
+
 namespace post_it_dotnet.Services;
 
 public class WatchersService
@@ -20,6 +21,26 @@ public class WatchersService
   internal Watcher CreateWatcher(Watcher watcherData)
   {
     Watcher watcher = _repository.CreateWatcher(watcherData);
+    return watcher;
+  }
+
+  internal string DeleteWatcher(int watcherId, string userId)
+  {
+    Watcher watcher = GetWatcherById(watcherId);
+
+    if (watcher.AccountId != userId) throw new Exception("YOU CANNOT DELETE ANOTHER USER'S WATCHER, BRUH");
+
+    _repository.DeleteWatcher(watcherId);
+
+    return "No longer watching that album!";
+  }
+
+  private Watcher GetWatcherById(int watcherId)
+  {
+    Watcher watcher = _repository.GetWatcherById(watcherId);
+
+    if (watcher == null) throw new Exception($"Invalid watcher id: {watcherId}");
+
     return watcher;
   }
 
