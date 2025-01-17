@@ -22,9 +22,9 @@ public class WatchersService
     return watcher;
   }
 
-  internal List<WatcherProfile> GetWatchersByAlbumId(int albumId)
+  internal List<WatcherProfile> GetWatcherProfilesByAlbumId(int albumId)
   {
-    List<WatcherProfile> watchers = _repository.GetWatchersByAlbumId(albumId);
+    List<WatcherProfile> watchers = _repository.GetWatcherProfilesByAlbumId(albumId);
     return watchers;
   }
 }

@@ -29,7 +29,7 @@ public class WatchersRepository
     return watcher;
   }
 
-  internal List<WatcherProfile> GetWatchersByAlbumId(int albumId)
+  internal List<WatcherProfile> GetWatcherProfilesByAlbumId(int albumId)
   {
     string sql = @"
     SELECT
