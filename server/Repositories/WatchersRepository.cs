@@ -3,6 +3,7 @@
 
 
 
+
 namespace post_it_dotnet.Repositories;
 
 public class WatchersRepository
@@ -27,4 +28,24 @@ public class WatchersRepository
 
     return watcher;
   }
+
+  internal List<WatcherProfile> GetWatchersByAlbumId(int albumId)
+  {
+    string sql = @"
+    SELECT
+    watchers.*,
+    accounts.*
+    FROM watchers
+    JOIN accounts ON watchers.account_id = accounts.id
+    WHERE album_id = @albumId;";
+
+    List<WatcherProfile> watchers = _db.Query(sql, (Watcher watcher, WatcherProfile account) =>
+    {
+      account.AlbumId = watcher.AlbumId;
+      account.WatcherId = watcher.Id;
+      return account;
+    }, new { albumId }).ToList();
+    return watchers;
+  }
+
 }

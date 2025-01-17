@@ -5,14 +5,16 @@ namespace post_it_dotnet.Controllers;
 [Route("api/{controller}")] // api/albums
 public class AlbumsController : ControllerBase
 {
-  public AlbumsController(AlbumsService albumsService, Auth0Provider auth0Provider, PicturesService picturesService)
+  public AlbumsController(AlbumsService albumsService, Auth0Provider auth0Provider, PicturesService picturesService, WatchersService watchersService)
   {
     _albumsService = albumsService;
     _auth0Provider = auth0Provider;
     _picturesService = picturesService;
+    _watchersService = watchersService;
   }
   private readonly AlbumsService _albumsService;
   private readonly PicturesService _picturesService;
+  private readonly WatchersService _watchersService;
   private readonly Auth0Provider _auth0Provider;
 
   [Authorize]
@@ -84,6 +86,20 @@ public class AlbumsController : ControllerBase
     {
       List<Picture> pictures = _picturesService.GetPicturesByAlbumId(albumId);
       return Ok(pictures);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{albumId}/watchers")]
+  public ActionResult<List<WatcherProfile>> GetWatchersByAlbumId(int albumId)
+  {
+    try
+    {
+      List<WatcherProfile> watchers = _watchersService.GetWatchersByAlbumId(albumId);
+      return Ok(watchers);
     }
     catch (Exception exception)
     {

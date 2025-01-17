@@ -52,3 +52,11 @@ CREATE TABLE watchers(
   FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE,
   FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE
 );
+
+
+SELECT
+watchers.*,
+accounts.*
+FROM watchers
+JOIN accounts ON watchers.account_id = accounts.id
+WHERE album_id = 19;
